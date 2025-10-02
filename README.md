@@ -46,6 +46,7 @@ By using this software, you agree to use it solely for learning purposes.
 - [How to Run](#how-to-run)
   - [⌨️ Command Line Interface](#️-command-line-interface)
   - [🖥️ Web Application](#️-web-application)
+- [Indian Stock Market Support](#indian-stock-market-support)
 - [How to Contribute](#how-to-contribute)
 - [Feature Requests](#feature-requests)
 - [License](#license)
@@ -154,6 +155,23 @@ Please see detailed instructions on how to install and run the web application [
 
 <img width="1721" alt="Screenshot 2025-06-28 at 6 41 03 PM" src="https://github.com/user-attachments/assets/b95ab696-c9f4-416c-9ad1-51feb1f5374b" />
 
+
+
+## Indian Stock Market Support
+
+The AI Hedge Fund now supports Indian stocks from both NSE (National Stock Exchange) and BSE (Bombay Stock Exchange)!
+
+**Quick Start:**
+- Use `.NS` suffix for NSE stocks: `RELIANCE.NS`, `TCS.NS`, `INFY.NS`
+- Use `.BO` suffix for BSE stocks: `RELIANCE.BO`, `TCS.BO`, `INFY.BO`
+- Mix with US stocks: `AAPL,RELIANCE.NS,MSFT,TCS.NS`
+
+**Example:**
+```bash
+poetry run python src/main.py --tickers RELIANCE.NS,TCS.NS,INFY.NS
+```
+
+📖 **For detailed information, see the [Indian Stocks Guide](docs/INDIAN_STOCKS_GUIDE.md)**
 
 ## How to Contribute
 
