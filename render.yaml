@@ -49,7 +49,7 @@ services:
     startCommand: cd app/frontend && npm run preview -- --host 0.0.0.0 --port $PORT
     envVars:
       - key: VITE_API_URL
-        value: https://stokwith-ai.onrender.com
+        value: https://stocks-with-ai.onrender.com
 
 databases:
   - name: ai-hedge-fund-db
