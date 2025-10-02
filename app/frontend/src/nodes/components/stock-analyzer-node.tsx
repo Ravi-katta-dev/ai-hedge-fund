@@ -257,7 +257,8 @@ export function StockAnalyzerNode({
                       <span>Tickers</span>
                     </TooltipTrigger>
                     <TooltipContent side="right">
-                      You can add multiple tickers using commas (AAPL,NVDA,TSLA)
+                      You can add multiple tickers using commas (AAPL,NVDA,TSLA). 
+                      Indian stocks are supported using .NS for NSE (RELIANCE.NS) or .BO for BSE (TCS.BO).
                     </TooltipContent>
                   </Tooltip>
                 </div>

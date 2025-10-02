@@ -8,6 +8,7 @@ from colorama import Fore, Style
 from src.utils.analysts import ANALYST_ORDER
 from src.llm.models import LLM_ORDER, OLLAMA_LLM_ORDER, get_model_info, ModelProvider
 from src.utils.ollama import ensure_ollama_and_model
+from src.utils.ticker import normalize_ticker, validate_ticker
 
 from dataclasses import dataclass
 from typing import Optional
@@ -24,7 +25,7 @@ def add_common_args(
         "--tickers",
         type=str,
         required=require_tickers,
-        help="Comma-separated list of stock ticker symbols (e.g., AAPL,MSFT,GOOGL)",
+        help="Comma-separated list of stock ticker symbols (e.g., AAPL,MSFT,GOOGL for US stocks or RELIANCE.NS,TCS.BO for Indian stocks)",
     )
     if include_analyst_flags:
         parser.add_argument(
@@ -64,9 +65,35 @@ def add_date_args(parser: argparse.ArgumentParser, *, default_months_back: int |
 
 
 def parse_tickers(tickers_arg: str | None) -> list[str]:
+    """
+    Parse and normalize ticker symbols.
+    Supports both US tickers (e.g., AAPL) and Indian tickers (e.g., RELIANCE.NS, TCS.BO).
+    """
     if not tickers_arg:
         return []
-    return [ticker.strip() for ticker in tickers_arg.split(",") if ticker.strip()]
+    
+    tickers = []
+    invalid_tickers = []
+    
+    for ticker in tickers_arg.split(","):
+        ticker = ticker.strip()
+        if not ticker:
+            continue
+        
+        # Normalize the ticker (converts to uppercase, validates format)
+        normalized = normalize_ticker(ticker)
+        is_valid, market = validate_ticker(normalized)
+        
+        if is_valid:
+            tickers.append(normalized)
+        else:
+            invalid_tickers.append(ticker)
+    
+    # Warn about invalid tickers
+    if invalid_tickers:
+        print(f"{Fore.YELLOW}Warning: Ignoring invalid tickers: {', '.join(invalid_tickers)}{Style.RESET_ALL}")
+    
+    return tickers
 
 
 def select_analysts(flags: dict | None = None) -> list[str]:

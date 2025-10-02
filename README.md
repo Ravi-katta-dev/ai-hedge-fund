@@ -46,6 +46,7 @@ By using this software, you agree to use it solely for learning purposes.
 - [How to Run](#how-to-run)
   - [⌨️ Command Line Interface](#️-command-line-interface)
   - [🖥️ Web Application](#️-web-application)
+- [Indian Stock Market Support](#indian-stock-market-support)
 - [How to Contribute](#how-to-contribute)
 - [Feature Requests](#feature-requests)
 - [License](#license)
@@ -80,7 +81,13 @@ FINANCIAL_DATASETS_API_KEY=your-financial-datasets-api-key
 
 **Important**: You must set at least one LLM API key (e.g. `OPENAI_API_KEY`, `GROQ_API_KEY`, `ANTHROPIC_API_KEY`, or `DEEPSEEK_API_KEY`) for the hedge fund to work. 
 
-**Financial Data**: Data for AAPL, GOOGL, MSFT, NVDA, and TSLA is free and does not require an API key. For any other ticker, you will need to set the `FINANCIAL_DATASETS_API_KEY` in the .env file.
+**Financial Data**: Data for AAPL, GOOGL, MSFT, NVDA, and TSLA is free and does not require an API key. For any other ticker (including Indian stocks), you will need to set the `FINANCIAL_DATASETS_API_KEY` in the .env file.
+
+**Indian Stock Market Support**: This system supports Indian stocks from both NSE (National Stock Exchange) and BSE (Bombay Stock Exchange). Use the following ticker formats:
+- NSE stocks: Add `.NS` suffix (e.g., `RELIANCE.NS`, `TCS.NS`, `INFY.NS`)
+- BSE stocks: Add `.BO` suffix (e.g., `RELIANCE.BO`, `TCS.BO`, `INFY.BO`)
+
+The system includes a dedicated Rakesh Jhunjhunwala agent that analyzes stocks using principles from India's legendary investor.
 
 ## How to Run
 
@@ -105,6 +112,16 @@ poetry install
 #### Run the AI Hedge Fund
 ```bash
 poetry run python src/main.py --ticker AAPL,MSFT,NVDA
+```
+
+For Indian stocks, use the appropriate exchange suffix (.NS for NSE, .BO for BSE):
+```bash
+poetry run python src/main.py --ticker RELIANCE.NS,TCS.BO,INFY.NS
+```
+
+You can also mix US and Indian stocks:
+```bash
+poetry run python src/main.py --ticker AAPL,RELIANCE.NS,MSFT,TCS.BO
 ```
 
 You can also specify a `--ollama` flag to run the AI hedge fund using local LLMs.
@@ -138,6 +155,23 @@ Please see detailed instructions on how to install and run the web application [
 
 <img width="1721" alt="Screenshot 2025-06-28 at 6 41 03 PM" src="https://github.com/user-attachments/assets/b95ab696-c9f4-416c-9ad1-51feb1f5374b" />
 
+
+
+## Indian Stock Market Support
+
+The AI Hedge Fund now supports Indian stocks from both NSE (National Stock Exchange) and BSE (Bombay Stock Exchange)!
+
+**Quick Start:**
+- Use `.NS` suffix for NSE stocks: `RELIANCE.NS`, `TCS.NS`, `INFY.NS`
+- Use `.BO` suffix for BSE stocks: `RELIANCE.BO`, `TCS.BO`, `INFY.BO`
+- Mix with US stocks: `AAPL,RELIANCE.NS,MSFT,TCS.NS`
+
+**Example:**
+```bash
+poetry run python src/main.py --tickers RELIANCE.NS,TCS.NS,INFY.NS
+```
+
+📖 **For detailed information, see the [Indian Stocks Guide](docs/INDIAN_STOCKS_GUIDE.md)**
 
 ## How to Contribute
 
