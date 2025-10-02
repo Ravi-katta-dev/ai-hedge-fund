@@ -1,0 +1,58 @@
+services:
+  # Backend Service
+  - type: web
+    name: ai-hedge-fund-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd app/backend && 
+      pip install --upgrade pip && 
+      pip install -r requirements.txt
+    startCommand: cd app/backend && python -m uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FINANCIAL_DATASETS_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY  
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: XAI_API_KEY
+        sync: false
+      - key: GIGACHAT_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: AZURE_OPENAI_API_KEY
+        sync: false
+      - key: AZURE_OPENAI_ENDPOINT
+        sync: false
+      - key: AZURE_OPENAI_DEPLOYMENT_NAME
+        sync: false
+
+  # Frontend Service  
+  - type: web
+    name: ai-hedge-fund-frontend
+    env: node
+    region: oregon  
+    plan: free
+    buildCommand: |
+      cd app/frontend && 
+      npm install && 
+      npm run build
+    startCommand: cd app/frontend && npm run preview -- --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: VITE_API_URL
+        value: https://stokwith-ai.onrender.com
+
+databases:
+  - name: ai-hedge-fund-db
+    databaseName: hedge_fund
+    user: hedge_fund_user
+    plan: free

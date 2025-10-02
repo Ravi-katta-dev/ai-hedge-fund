@@ -7,7 +7,8 @@ import {
   HedgeFundRequest
 } from '@/services/types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL ||
+  (import.meta.env.MODE === 'production' ? 'https://stokwith-ai.onrender.com' : 'http://localhost:8000');
 
 export const api = {
   /**
